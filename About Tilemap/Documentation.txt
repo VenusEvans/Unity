@@ -6,6 +6,7 @@
 此时这些碰撞体会以单元格的样式添加碰撞体
 但我想让他成为一个整体的碰撞体 因为单元格样子的碰撞体有时会卡住我的游戏角色
 所以我要添加另一个组件 即：Composite Collider 2D
+并将Tilemap Collider 2D组件的Used By Composite属性勾选上
 此时他们就会变成一个整体 但是Unity会为我自动添加一个Rigidbody 2D组件
 我的场景就变的有质量且有重力 在我运行游戏时他们会掉下去
 我不希望这样 所以要把Rigidbody 2D的Body Type属性调整为Static
