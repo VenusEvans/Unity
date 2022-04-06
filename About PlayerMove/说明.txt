@@ -1,1 +1,12 @@
+#PlayerMove
 
+代码写好后 想让我的游戏角色移动的更舒服还需要一些设置
+
+为Box Collider 2D组件创建一个2D的物理材质并将材质内的所有属性归0
+这样做的好处是当我们的游戏角色碰到墙时不会黏住
+
+改变Rigidbody 2D组件的属性
+将Collision Detection属性设置为：Continuous
+这样我们的游戏角色与地面发生碰撞就不会穿过地面了
+将Interpolate属性设置为：Interpolate
+这样人物的运动就会更平滑 不会影响手感
