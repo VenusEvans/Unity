@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isJump;
     public bool isOnGround;
     public bool isCrouch;
+    public bool isTopGro;
 
     [Header("Player移动相关属性")]
     public float speed; //玩家的移动速度
@@ -38,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         collStandOffset = boxcoll.offset;
         collCrouchSize = new Vector2(boxcoll.size.x, boxcoll.size.y * 0.5f);
         //collCrouchOffset = new Vector2(boxcoll.offset.x, boxcoll.offset.y * 0.5f);
-        collCrouchOffset = new Vector2(boxcoll.offset.x, boxcoll.offset.y - boxcoll.size.y / 4f);
+        collCrouchOffset = new Vector2(boxcoll.offset.x, boxcoll.offset.y - boxcoll.size.y / 4f); //百度的解决方案，用上面那个会出现减少下面的情况
 
     }
 
@@ -65,11 +66,22 @@ public class PlayerMovement : MonoBehaviour
 
     void MoveControl() //控制移动的方法
     {
-        if (Input.GetButton("Crouch")) //判断下蹲时的操作
+        RaycastHit2D top = Raycast(new Vector2(0,boxcoll.size.y),Vector2.up,0.5f,ground); //射线检测
+        
+        if (top) //如果头上有东西
+        {
+            isTopGro = true;
+        }
+        else
+        {
+            isTopGro = false;
+        }
+
+        if (Input.GetButton("Crouch") && isOnGround && !isCrouch) //判断下蹲时的操作
         {
             CrouchCollControl();
         }
-        else if (!Input.GetButton("Crouch") && isCrouch)
+        else if (!Input.GetButton("Crouch") && isCrouch && !isTopGro)
         {
             StandUpCollControl();
         }
@@ -78,13 +90,16 @@ public class PlayerMovement : MonoBehaviour
         {
             xVelocity /= crouchSpeed;
         }
-       
+
+
         rb.velocity = new Vector2(xVelocity * speed, rb.velocity.y); //控制玩家左右移动
         faceDircetion = Input.GetAxisRaw("Horizontal"); //这个方法不同于上面，他的值是-1，0，1，是三个固定值
         if (faceDircetion != 0)
         {
             transform.localScale = new Vector3(faceDircetion, 1, 1); //控制玩家的朝向
-        }    
+        }
+
+
     }
 
     void JumpControl() //控制跳跃
@@ -102,11 +117,21 @@ public class PlayerMovement : MonoBehaviour
         boxcoll.size = collCrouchSize;
         boxcoll.offset = collCrouchOffset;
     }
+
     void StandUpCollControl() //站起后恢复原有碰撞体尺寸
     {
         isCrouch = false;
-        
         boxcoll.size = collStandSize;
         boxcoll.offset = collStandOffset;
     }
+
+    RaycastHit2D Raycast(Vector2 offset,Vector2 rayDirection,float length,LayerMask layer) //重写射线方法
+    {
+        Vector2 position = transform.position;
+        RaycastHit2D hit = Physics2D.Raycast(position + offset, rayDirection, length, layer);
+        Color color = hit ? Color.red : Color.green;
+        Debug.DrawRay(position + offset, rayDirection * length, color);
+        return hit;
+    }
+
 }
