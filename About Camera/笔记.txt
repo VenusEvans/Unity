@@ -1,0 +1,11 @@
+#Camera
+
+为了更便捷的使用相机跟随 将使用一个官方的插件 他叫：Cinemachine
+在编辑器内点击Window->Package Manager就可以下载
+之后在菜单栏上就会出现Cinemachine 我们点击他选择Create Virtual Camera
+这样我们就会多一个CM vcam1的游戏物体
+他有一个Follow的属性 我们只需要将我们的Player拖拽给他 相机就会跟着我们的游戏玩家跑啦
+但是现在 我们的相机会照到游戏外面的世界
+我们创建一个新的游戏物体 并给他一个Polygon Collider 2D组件
+这是一个多边形组件 我们编辑这个碰撞器 让他包裹住我们的游戏场景 并勾选Is Trigger
+这样 我们的玩家怎么移动都不会跑到游戏场景外面去了
