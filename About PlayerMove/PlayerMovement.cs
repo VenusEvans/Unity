@@ -15,13 +15,14 @@ public class PlayerMovement : MonoBehaviour
     public bool isOnGround;
     public bool isCrouch;
     public bool isTopGro;
+    public bool isHurt;
 
     [Header("Player移动相关属性")]
     public float speed; //玩家的移动速度
-    float xVelocity; //玩家x轴力的方向
-    float faceDircetion; //玩家的朝向
+    public float xVelocity; //玩家x轴力的方向
     public float jumpForce;//跳跃的力
     public float crouchSpeed = 4f; //下蹲时除以这个数使速度减慢
+    float faceDircetion; //玩家的朝向
 
     /*Player碰撞体的尺寸*/
     Vector2 collStandSize;
@@ -45,23 +46,15 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (rb.IsTouchingLayers(ground)) //判断跳跃
-        {
-            isJump = false;
-            isOnGround = true;
-            JumpControl();
-        }
-        if (rb.velocity.y != 0)
-        {
-            isJump = true;
-            isOnGround = false;
-        }
+        ifJump();
     }
 
     void FixedUpdate()
     {
-        MoveControl(); //物理方法最好在FixedUpdate里调用 
-        //JumpControl();
+        //if (isHurt == false) //如果不受伤
+        //{
+            MoveControl(); //物理方法最好在FixedUpdate里调用 
+        //}
     }
 
     void MoveControl() //控制移动的方法
@@ -110,6 +103,21 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void ifJump() //跳跃判断
+    {
+        if (rb.IsTouchingLayers(ground)) //判断跳跃
+        {
+            isJump = false;
+            isOnGround = true;
+            JumpControl();
+        }
+        else  //if (rb.velocity.y != 0)
+        {
+            isJump = true;
+            isOnGround = false;
+        }
+    }
+
     void CrouchCollControl() //下蹲时改变碰撞体参数
     {
         isCrouch = true;
@@ -134,4 +142,11 @@ public class PlayerMovement : MonoBehaviour
         return hit;
     }
 
+    private void OnCollisionExit2D(Collision2D collision) //如果不碰敌人了 isHurt设置成false
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            isHurt = false;
+        }
+    }
 }
