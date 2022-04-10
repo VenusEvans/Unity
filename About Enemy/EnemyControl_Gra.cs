@@ -17,8 +17,9 @@ public class EnemyControl_Gra: MonoBehaviour
     float leftx;
     float rightx;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         boxColl = GetComponent<BoxCollider2D>();
