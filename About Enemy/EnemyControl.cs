@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyControl: MonoBehaviour
+public class EnemyControl: Enemy //继承父级改为Enemy 为了调用消灭动画
 {
     Rigidbody2D rb;
 
@@ -13,8 +13,9 @@ public class EnemyControl: MonoBehaviour
     float leftx;
     float rightx;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
         transform.DetachChildren();
         leftx = left.position.x;
