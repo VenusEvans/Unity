@@ -15,6 +15,8 @@ public class AudioManager : MonoBehaviour
     AudioSource jumpSource;
     AudioSource collectionSource;
     AudioSource hitSource;
+    AudioSource gameoverSource;
+    AudioSource winSource;
 
     void Awake()
     {
@@ -25,6 +27,8 @@ public class AudioManager : MonoBehaviour
         jumpSource = gameObject.AddComponent<AudioSource>();
         collectionSource=gameObject.AddComponent<AudioSource>();
         hitSource = gameObject.AddComponent<AudioSource>();
+        gameoverSource = gameObject.AddComponent<AudioSource>();
+        winSource = gameObject.AddComponent<AudioSource>();
     }
     /*静态方法直接调用*/
     public static void PlayattackAudio() //播放攻击
@@ -55,5 +59,20 @@ public class AudioManager : MonoBehaviour
         audioManager.hitSource.playOnAwake = false;
         audioManager.hitSource.clip = audioManager.allAudio[3]; //3是受伤音效
         audioManager.hitSource.Play();
+    }
+
+    public static void PlayGameOverAudio() //播放游戏结束
+    {
+        audioManager.gameoverSource.playOnAwake = false;
+        audioManager.gameoverSource.clip = audioManager.allAudio[4]; //4是游戏结束声音
+        audioManager.gameoverSource.Play();
+        //audioManager.mainSource.enabled = false;
+    }
+
+    public static void PlayWinAudio() //任务完成
+    {
+        audioManager.winSource.playOnAwake = false;
+        audioManager.winSource.clip = audioManager.allAudio[5]; //5是任务完成
+        audioManager.winSource.Play();
     }
 }
