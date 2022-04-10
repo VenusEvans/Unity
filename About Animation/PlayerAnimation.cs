@@ -12,7 +12,7 @@ public class PlayerAnimation : MonoBehaviour
     int isJumpID;
     int isCrouchID;
     int isHurtID;
-    //public float jumpForce;
+    public float jumpForce;
 
     void Start() 
     {
@@ -50,7 +50,7 @@ public class PlayerAnimation : MonoBehaviour
 
             if (anim.GetBool(isJumpID)) //如果是跳跃的动画
             {
-                //rb.velocity = new Vector2(rb.velocity.x, jumpForce * Time.deltaTime); //想让玩家在踩掉怪物后跳一下，不知道为什么不好使
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce); //想让玩家在踩掉怪物后跳一下，不知道为什么不好使 /好了！！！！！！！！ 之间的deltaTime没用
                 Destroy(collision.gameObject);
                 anim.SetBool(isJumpID, movement.isJump);
                 movement.isHurt = false;
