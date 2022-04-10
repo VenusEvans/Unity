@@ -13,6 +13,7 @@ public class PlayerAnimation : MonoBehaviour
     int isCrouchID;
     int isHurtID;
     public float jumpForce;
+    public float force;
 
     void Start() 
     {
@@ -46,12 +47,15 @@ public class PlayerAnimation : MonoBehaviour
 
         if (collision.gameObject.tag == "Enemy") //如果碰撞的tag为Enemy
         {
+            //EnemyControl_Gra deathAnim=collision.gameObject.GetComponent<EnemyControl_Gra>(); //调用其他脚本内的函数
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             movement.isHurt = true;
 
             if (anim.GetBool(isJumpID)) //如果是跳跃的动画
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce); //想让玩家在踩掉怪物后跳一下，不知道为什么不好使 /好了！！！！！！！！ 之间的deltaTime没用
-                Destroy(collision.gameObject);
+                //deathAnim.Death();
+                enemy.Death();
                 anim.SetBool(isJumpID, movement.isJump);
                 movement.isHurt = false;
             }
@@ -62,3 +66,4 @@ public class PlayerAnimation : MonoBehaviour
         }
     }
 }
+
