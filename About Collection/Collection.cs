@@ -8,6 +8,7 @@ public class Collection : MonoBehaviour
     {
         if(collision.tag== "Collection")
         {
+            AudioManager.PlayCollectionAudio();
             Destroy(collision.gameObject);
         }
     }
