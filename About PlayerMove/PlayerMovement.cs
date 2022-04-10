@@ -99,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            AudioManager.PlayJumpAudio();
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
@@ -147,6 +148,14 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             isHurt = false;
+        }
+    }
+    
+    void ifHit() //Hurt状态
+    {
+        if (isHurt == true)
+        {
+            AudioManager.PlayHitAudio();
         }
     }
 }
