@@ -11,15 +11,10 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    
-    void Update()
-    {
-        
-    }
-
     public void Death() //死亡动画效果
     {
         anim.SetTrigger("isDeath");
+        AudioManager.PlayattackAudio();
     }
 
     public void JumpOnDestory()
