@@ -14,8 +14,9 @@ public class FlyEnemyControl: MonoBehaviour
     float upy;
     float downy;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
         transform.DetachChildren();
         upy = up.position.y;
