@@ -7,8 +7,25 @@ using UnityEngine.SceneManagement;
 public class Collection : MonoBehaviour
 {
     public int cherry;
-    public Text textCherryNum;
+    public Text textAcronNum;
 
+    public Text textPlayerHPNum;
+    PlayerAnimation HPNum;
+    PlayerMovement movement;
+    BoxCollider2D boxcoll;
+
+    private void Start()
+    {
+        boxcoll = GetComponent<BoxCollider2D>();
+        HPNum = GetComponent<PlayerAnimation>();
+        movement = GetComponent<PlayerMovement>();
+        
+    }
+    private void Update()
+    {
+        textPlayerHPNum.text = HPNum.HP.ToString();
+        Die();
+    }
     private void OnTriggerEnter2D(Collider2D collision) //收集物品 触发器
     {
         if(collision.tag== "Collection")
@@ -16,7 +33,7 @@ public class Collection : MonoBehaviour
             AudioManager.PlayCollectionAudio();
             Destroy(collision.gameObject);
             cherry++;
-            textCherryNum.text = cherry.ToString();
+            textAcronNum.text = cherry.ToString();
         }
 
         if (collision.tag == "GameOver")
@@ -27,6 +44,20 @@ public class Collection : MonoBehaviour
         }
     }
 
+    void Die() //当血量下降到0时进行的操作
+    {
+        if (movement.isHurt == true)
+        {
+            if (HPNum.HP == 0)
+            {
+                HPNum.isDie = true;
+                boxcoll.enabled = false;
+                gameObject.GetComponent<AudioSource>().mute = true;
+                AudioManager.PlayGameOverAudio();
+                Invoke("Restart", 4f);
+            }
+        }
+    }
     void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); //重新加载场景
