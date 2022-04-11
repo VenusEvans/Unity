@@ -18,6 +18,7 @@ public class DialogColl_win : MonoBehaviour
     {
         if (obj == false && collision.tag == "Player") //如果松果没了而且我还在交任务
         {
+            Time.timeScale = 0;
             playerAudio.mute = true;
             AudioManager.PlayWinAudio();
             winDialog.SetActive(true);
