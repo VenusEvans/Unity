@@ -6,6 +6,7 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     static AudioManager audioManager;
+    public AudioMixer audioMixer;
 
     //public AudioClip attackAudio; //背景音乐
     //public AudioClip jumpAudio; //跳跃声音
@@ -74,5 +75,10 @@ public class AudioManager : MonoBehaviour
         audioManager.winSource.playOnAwake = false;
         audioManager.winSource.clip = audioManager.allAudio[5]; //5是任务完成
         audioManager.winSource.Play();
+    }
+
+    public void SliderVolume(float value) //通过滑动条来控制声音（AudioMixer）
+    {
+        audioMixer.SetFloat("MainValue", value);
     }
 }
