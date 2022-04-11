@@ -51,16 +51,16 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        //if (isHurt == false) //如果不受伤
-        //{
-            MoveControl(); //物理方法最好在FixedUpdate里调用 
-        //}
+        if (!isHurt) //如果不受伤
+        {
+        MoveControl(); //物理方法最好在FixedUpdate里调用 
+        }
     }
 
     void MoveControl() //控制移动的方法
     {
-        RaycastHit2D top = Raycast(new Vector2(0,boxcoll.size.y),Vector2.up,0.5f,ground); //射线检测
-        
+        RaycastHit2D top = Raycast(new Vector2(0, boxcoll.size.y), Vector2.up, 0.5f, ground); //射线检测
+
         if (top) //如果头上有东西
         {
             isTopGro = true;
@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
     void CrouchCollControl() //下蹲时改变碰撞体参数
     {
         isCrouch = true;
-        
+
         boxcoll.size = collCrouchSize;
         boxcoll.offset = collCrouchOffset;
     }
@@ -134,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
         boxcoll.offset = collStandOffset;
     }
 
-    RaycastHit2D Raycast(Vector2 offset,Vector2 rayDirection,float length,LayerMask layer) //重写射线方法
+    RaycastHit2D Raycast(Vector2 offset, Vector2 rayDirection, float length, LayerMask layer) //重写射线方法
     {
         Vector2 position = transform.position;
         RaycastHit2D hit = Physics2D.Raycast(position + offset, rayDirection, length, layer);
@@ -148,14 +148,6 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             isHurt = false;
-        }
-    }
-    
-    void ifHit() //Hurt状态
-    {
-        if (isHurt == true)
-        {
-            AudioManager.PlayHitAudio();
         }
     }
 }
