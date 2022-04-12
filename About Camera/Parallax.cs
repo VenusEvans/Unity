@@ -5,16 +5,20 @@ using UnityEngine;
 public class Parallax : MonoBehaviour
 {
     public Transform cam;
-    public float moveRate;//移动范围
-    float startPoint;
+    public float xmoveRate;//移动范围
+    public float ymoveRate;
+    float xstartPoint;
+    float ystartPoint;
 
     void Start()
     {
-        startPoint = transform.position.x;
+        xstartPoint = transform.position.x;
+        ystartPoint = transform.position.y;
+
     }
 
     void Update()
     {
-        transform.position = new Vector2(startPoint + cam.position.x * moveRate, transform.position.y);
+        transform.position = new Vector2(xstartPoint + cam.position.x * xmoveRate, ystartPoint + cam.position.y * ymoveRate);
     }
 }
