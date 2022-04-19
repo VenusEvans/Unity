@@ -44,4 +44,8 @@ public class SceneControl : MonoBehaviour
     {
         SceneManager.LoadScene(levelIndex);
     }
+    public void GoToMain()
+    {
+        SceneManager.LoadScene("Main");
+    }
 }
