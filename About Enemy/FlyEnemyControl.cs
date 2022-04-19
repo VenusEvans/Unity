@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*只是调整了一些参数，可以让敌人上下飞舞*/
-public class FlyEnemyControl: MonoBehaviour
+public class FlyEnemyControl: Enemy
 {
     Rigidbody2D rb;
 
