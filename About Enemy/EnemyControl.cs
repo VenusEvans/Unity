@@ -51,3 +51,4 @@ public class EnemyControl: Enemy //继承父级改为Enemy 为了调用消灭动
         }
     }
 }
+ 
