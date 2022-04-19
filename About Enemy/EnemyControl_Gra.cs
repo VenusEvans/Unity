@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-/*这个敌人动画有点多 重新写了一个*/
-public class EnemyControl_Gra: MonoBehaviour
+
+public class EnemyControl_Gra: Enemy
 {
     Rigidbody2D rb;
-    Animator anim;
+    //Animator anim;
     BoxCollider2D boxColl;
-
+    
     public float speed; //敌人速度
     public float jumpForce;
     public LayerMask ground;
@@ -16,12 +16,12 @@ public class EnemyControl_Gra: MonoBehaviour
     bool faceLeft = true;
     float leftx;
     float rightx;
-
+    
     protected override void Start()
     {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         boxColl = GetComponent<BoxCollider2D>();
         transform.DetachChildren();
         leftx = left.position.x;
@@ -81,4 +81,5 @@ public class EnemyControl_Gra: MonoBehaviour
             anim.SetBool("isFall",false);
         }
     }
+
 }
