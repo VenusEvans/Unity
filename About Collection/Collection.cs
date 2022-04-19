@@ -43,7 +43,7 @@ public class Collection : MonoBehaviour
             Invoke("Restart", 4f); //延时调用方法
         }
     }
-
+    
     void Die() //当血量下降到0时进行的操作
     {
         if (movement.isHurt == true)
